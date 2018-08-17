@@ -19,7 +19,7 @@ public class CardLevel {
         }
     }
 
-    private int calculateMaxEp() {
+    public int calculateMaxEp() {
         int levelFactor = 5;
         int originalMaxEp = 1000;
         return (int)(originalMaxEp * Math.pow((1 + levelFactor /100), this.level));

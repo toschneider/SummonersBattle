@@ -24,7 +24,7 @@ public class Card extends GameObject {
         this.level = level;
 
     }
-
+    //Todo
     public void update() {
         // Current time in nanoseconds
         long now = System.nanoTime();
@@ -51,7 +51,7 @@ public class Card extends GameObject {
         canvas.drawBitmap(image, x, y,null);
         this.lastDrawNanoTime= System.nanoTime();
     }
-
+    //Todo
     public void drawCard(Canvas canvas) {
 
     }

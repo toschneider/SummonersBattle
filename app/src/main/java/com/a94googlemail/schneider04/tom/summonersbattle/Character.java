@@ -3,6 +3,7 @@ package com.a94googlemail.schneider04.tom.summonersbattle;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
+
 public class Character extends GameObject {
 
     private int health;
@@ -34,6 +35,7 @@ public class Character extends GameObject {
     }
 
     public void earnedEp(int ep) {
+
         this.level.updateEp(ep);
     }
 
@@ -41,4 +43,7 @@ public class Character extends GameObject {
         this.health -= (this.health > dmg)?dmg:this.health;
     }
 
+    public CardLevel getLevel() {
+        return level;
+    }
 }

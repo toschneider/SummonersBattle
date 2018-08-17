@@ -3,7 +3,9 @@ package com.a94googlemail.schneider04.tom.summonersbattle;
 
 import android.graphics.Bitmap;
 
-public abstract class GameObject {
+import java.io.Serializable;
+
+public abstract class GameObject implements Serializable {
     protected Bitmap image;
 
     protected final int rowCount;
