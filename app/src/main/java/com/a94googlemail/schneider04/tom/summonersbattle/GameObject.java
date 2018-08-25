@@ -2,59 +2,109 @@ package com.a94googlemail.schneider04.tom.summonersbattle;
 
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.util.DisplayMetrics;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public abstract class GameObject implements Serializable {
+
+    protected GameSurface gameSurface;
+
     protected Bitmap image;
+    protected Bitmap heart;
+    private int fileName;
 
-    protected final int rowCount;
-    protected final int colCount;
-
-    protected final int WIDTH;
-    protected final int HEIGHT;
-
-    protected final int width;
-    protected final int height;
+    //Todo make health.java
+    protected int health;
 
     protected int x;
     protected int y;
 
-    public GameObject(Bitmap image, int rowCount, int colCount, int x, int y) {
-        this.image = image;
-        this.rowCount = rowCount;
-        this.colCount = colCount;
+    protected boolean enemy;
 
-        this.x = x;
-        this.y = y;
+    protected Position pos;
 
-        this.WIDTH = image.getWidth();
-        this.HEIGHT = image.getHeight();
 
-        this.width = this.WIDTH/colCount;
-        this.height = this.HEIGHT/rowCount;
+    public GameObject(int fileName, int x, int y, int health,boolean enemy, GameSurface gameSurface) {
+        pos = new Position(x,y);
+        this.enemy = enemy;
+        this.health = health;
+        this.fileName = fileName;
+        this.gameSurface = gameSurface;
     }
 
-    protected Bitmap createSubImageAt(int row, int col) {
-        //createBitmap(bitmap,x,y,width, height).
-        Bitmap subImage = Bitmap.createBitmap(image, col* width, row* height, width,height);
-        return subImage;
+    public GameObject(int fileName, int x, int y,boolean enemy, GameSurface gameSurface) {
+        pos = new Position(x,y);
+        this.enemy = enemy;
+        this.gameSurface = gameSurface;
+        this.health = 35;
+        this.fileName = fileName;
     }
 
-    public int getX() {
-        return this.x;
+
+    public void setGameSurface(GameSurface gameSurface) {
+        this.gameSurface = gameSurface;
     }
 
-    public int getY() {
-        return this.y;
+    protected void readImage() {
+
+        heart = BitmapFactory.decodeResource(gameSurface.getResources(),R.drawable.heart);
+        Bitmap temp = BitmapFactory.decodeResource(gameSurface.getResources(), R.drawable.adam);
+
+        if(enemy) {
+            temp = flip(temp);
+        }
+        this.image = Bitmap.createScaledBitmap(temp, gameSurface.getHeight() / 5,gameSurface.getHeight()/4, false);
     }
 
-    public int getHeight() {
-        return this.height;
+    /**
+     * flips bitmap for enemy
+     * @param bitmap
+     * @return
+     */
+    private Bitmap flip(Bitmap bitmap) {
+        Matrix m = new Matrix();
+        m.preScale(-1,1);
+        Bitmap dst = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),m,false);
+        dst.setDensity(DisplayMetrics.DENSITY_DEFAULT);
+        return dst;
     }
 
-    public int getWidth() {
-        return this.width;
+
+
+    public Position getPos() {
+        return pos;
+    }
+
+    public void setPos(int x, int y) { this.pos = new Position(x,y);
+    }
+
+    public void setEnemy(boolean enemy) {
+        this.enemy = enemy;
+        if(enemy) {
+            image = flip(image);
+        }
+    }
+
+    private void writeObject(ObjectOutputStream oos) throws IOException {
+        oos.defaultWriteObject();
+        oos.writeObject(x);
+        oos.writeObject(y);
+        oos.writeObject(fileName);
+
+    }
+
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+        x = (int)ois.readObject();
+        y = (int)ois.readObject();
+        fileName = (int)ois.readObject();
     }
 
 }

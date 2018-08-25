@@ -4,11 +4,16 @@ package com.a94googlemail.schneider04.tom.summonersbattle;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameThread extends Thread {
 
     private boolean running;
     private GameSurface gameSurface;
     private SurfaceHolder surfaceHolder;
+
+
 
     public GameThread(GameSurface gameSurface, SurfaceHolder surfaceHolder)  {
         this.gameSurface= gameSurface;

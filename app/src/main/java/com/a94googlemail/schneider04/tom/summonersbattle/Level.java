@@ -1,10 +1,11 @@
 package com.a94googlemail.schneider04.tom.summonersbattle;
 
-public class CardLevel {
+
+public class Level {
     private int level;
     private int currentEp;
 
-    public CardLevel(int level, int currentEp) {
+    public Level(int level, int currentEp) {
         this.level = level;
         this.currentEp = currentEp;
     }
@@ -32,4 +33,5 @@ public class CardLevel {
     public int getCurrentEp() {
         return currentEp;
     }
+
 }

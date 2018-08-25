@@ -2,6 +2,7 @@ package com.a94googlemail.schneider04.tom.summonersbattle;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -16,12 +17,16 @@ import android.widget.TextView;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     ImageView background;
     public ImageButton battle_button;
-    private Character character;
+    public Character character;
+    public ArrayList<Card> cardList;
     public void init(){
         battle_button = (ImageButton)findViewById(R.id.battleButton);
         battle_button.setOnClickListener(new View.OnClickListener(){
@@ -38,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //Uri path = Uri.parse("android.resource://")
         // Set fullscreen
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -50,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
        //background.setImageResource(R.drawable.splash);
         init();
 
-        Bitmap characterbitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.adam);
-        character = new Character(characterbitmap,200,160,0, background.getHeight()/2 - 100, 50, new CardLevel(1,0));
-        updateViews();
+        //Bitmap characterbitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.adam);
+        //character = new Character(characterbitmap,200,160,0, background.getHeight()/2 - 100, 50, new CardLevel(1,0));
+        //updateViews();
     }
 
     private void updateViews() {
@@ -67,13 +72,13 @@ public class MainActivity extends AppCompatActivity {
         levelprogressbarTextView.setText(curEp/maxEp + "%");
     }
 
-    @Override
+   /* @Override
     protected void onResume() {
         super.onResume();
-
+        Intent t = getIntent();
         updateViews();
     }
-
+*/
     @Override
     protected void onDestroy() {
         super.onDestroy();
