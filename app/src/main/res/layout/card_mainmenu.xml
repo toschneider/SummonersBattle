@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cardLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/cardImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/levelProgressBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/prophet" />
+
+        <ImageView
+            android:id="@+id/cardHealthImageView"
+            android:layout_width="65dp"
+            android:layout_height="60dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="@+id/cardImageButton"
+            app:layout_constraintTop_toTopOf="@+id/cardImageButton"
+            app:srcCompat="@drawable/heart" />
+
+        <TextView
+            android:id="@+id/cardHealthTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:text="12"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/cardHealthImageView"
+            app:layout_constraintEnd_toEndOf="@+id/cardHealthImageView"
+            app:layout_constraintStart_toStartOf="@+id/cardHealthImageView"
+            app:layout_constraintTop_toTopOf="@+id/cardHealthImageView" />
+
+        <ImageView
+            android:id="@+id/cardAtkImageView"
+            android:layout_width="65dp"
+            android:layout_height="60dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="@+id/cardImageButton"
+            app:layout_constraintTop_toTopOf="@+id/cardImageButton"
+            app:srcCompat="@drawable/melee" />
+
+        <ProgressBar
+            android:id="@+id/levelProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:minHeight="@android:dimen/app_icon_size"
+            android:scaleY="8"
+            app:layout_constraintBottom_toBottomOf="@+id/cardImageButton"
+            app:layout_constraintEnd_toEndOf="@+id/cardImageButton"
+            app:layout_constraintStart_toStartOf="@+id/cardImageButton" />
+
+        <TextView
+            android:id="@+id/levelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/levelProgressBar"
+            app:layout_constraintEnd_toEndOf="@+id/levelProgressBar"
+            app:layout_constraintTop_toTopOf="@+id/levelProgressBar" />
+
+        <TextView
+            android:id="@+id/cardAtkTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:text="5"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/cardAtkImageView"
+            app:layout_constraintEnd_toEndOf="@+id/cardAtkImageView"
+            app:layout_constraintStart_toStartOf="@+id/cardAtkImageView"
+            app:layout_constraintTop_toTopOf="@+id/cardAtkImageView" />
+
+        <TextView
+            android:id="@+id/levelProgressPercentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="8dp"
+            android:text="%"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/levelProgressBar"
+            app:layout_constraintEnd_toStartOf="@+id/levelTextView"
+            app:layout_constraintStart_toEndOf="@+id/levelProgressTextView"
+            app:layout_constraintTop_toTopOf="@+id/levelProgressBar" />
+
+        <TextView
+            android:id="@+id/levelProgressTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="12"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/levelProgressBar"
+            app:layout_constraintEnd_toStartOf="@+id/levelTextView"
+            app:layout_constraintStart_toStartOf="@+id/levelProgressBar"
+            app:layout_constraintTop_toTopOf="@+id/levelProgressBar" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

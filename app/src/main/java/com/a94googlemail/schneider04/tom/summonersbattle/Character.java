@@ -1,24 +1,21 @@
 package com.a94googlemail.schneider04.tom.summonersbattle;
 
+import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.util.DisplayMetrics;
-
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Character  extends GameObject implements Serializable {
-
-    private Level level;
     private long lastDrawNanoTime =-1;
 
-    public Character(int filename, int x, int y, Level level, boolean enemy, GameSurface gameSurface) {
-        super(filename,x,y,enemy , gameSurface);
-        this.level = level;
+    public Character(String fileName,int imageName, int x, int y, Level level, boolean enemy, GameSurface gameSurface) {
+        super(fileName,imageName,x,y,enemy , gameSurface);
+        this.stats.setLevel(level);
         calcHealth();
         readImage();
     }
@@ -36,22 +33,30 @@ public class Character  extends GameObject implements Serializable {
         int deltaTime = (int) ((now - lastDrawNanoTime)/ 1000000 );
     }
     private void calcHealth() {
-        health = retHealth();
+        stats.setHealth(retHealth());
     }
     private int retHealth(){
-        return 35 + 5 * level.getLevel();
+        return 35 + 5 * stats.getLevel().getLevel();
     }
+
+    /**
+     * draws Character
+     * @param canvas
+     */
     public void draw(Canvas canvas) {
         canvas.drawBitmap(image, getPos().getX(), getPos().getY(), null);
         canvas.drawBitmap(heart,getPos().getX()+image.getWidth()/2-heart.getWidth()/2,getPos().getY()-heart.getHeight()*1.1f,null);
+        canvas.drawText(""+this.stats.getHealth(), getPos().getX()+image.getWidth()/2-heart.getWidth()*0.25f, getPos().getY()-heart.getHeight()*0.55f, paint);
+
     }
 
     public void earnedEp(int ep) {
-
-        this.level.updateEp(ep);
+        this.stats.getLevel().updateEp(ep);
     }
 
-
+    /**
+     * reads and scales Bitmap
+     */
     protected void readImage() {
         super.readImage();
         Bitmap tmp = heart;
@@ -59,25 +64,77 @@ public class Character  extends GameObject implements Serializable {
     }
 
     public void receiveDamage(int dmg) {
-        this.health -= (this.health > dmg)?dmg:this.health;
+        if(stats.getHealth()>0) {
+            this.stats.setHealth(stats.getHealth() - ((this.stats.getHealth() > dmg)?dmg:this.stats.getHealth()));
+        }
     }
 
     public Level getLevel() {
-        return level;
+        return stats.getLevel();
     }
 
     private void writeObject(ObjectOutputStream oos) throws IOException {
         oos.defaultWriteObject();
-        oos.writeObject(health);
-        oos.writeObject(level);
         oos.writeObject(enemy);
     }
 
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
-        health = (int) ois.readObject();
-        level = (Level) ois.readObject();
         enemy = (boolean) ois.readObject();
+    }
+
+    /**
+     * reads Character or creates a new one
+     * @param player1 player1?
+     * @param fileName
+     * @param imageName R id
+     * @param gamesurface
+     * @param context
+     * @return
+     */
+    public static Character readCharacter(boolean player1,String fileName, int imageName, GameSurface gamesurface, Context context){
+        FileInputStream fis;
+        ObjectInputStream ois;
+        Character c;
+        try {
+            fis = context.openFileInput(fileName);
+            ois  = new ObjectInputStream(fis);
+            c = (Character) ois.readObject();
+
+            ois.close();
+            fis.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            if (player1) {
+                c = new Character(fileName,imageName,(int)(0.025*gamesurface.getWidth()) ,(int)(0.35*gamesurface.getHeight()),
+                        new Level(1,0),false,gamesurface);
+            } else {
+                c = new Character(fileName,imageName,(int)(0.875*gamesurface.getWidth() ),(int)(0.35*gamesurface.getHeight() ),
+                        new Level(1,0),true,gamesurface);
+            }
+            c.writeCharacter(fileName,context);
+        }
+        return c;
+    }
+
+    /**
+     * writes Character to internal storage
+     * @param fileName
+     * @param context
+     */
+    public void writeCharacter(String fileName, Context context) {
+        FileOutputStream fos;
+        ObjectOutputStream oos;
+        try {
+            fos = context.openFileOutput(fileName,Context.MODE_PRIVATE);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(this);
+            oos.close();
+            fos.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 }

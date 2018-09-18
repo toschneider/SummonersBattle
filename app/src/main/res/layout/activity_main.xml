@@ -9,20 +9,26 @@
 
     <ImageView
         android:id="@+id/background"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="center"
-        android:src="@drawable/splash"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/backgroundmain"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/b3background" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@color/colorAccent" />
@@ -32,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:text="TextView"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/background"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"
@@ -44,7 +51,7 @@
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
         android:tint="@android:color/transparent"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:srcCompat="@drawable/gold_mine" />
@@ -56,7 +63,7 @@
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
         android:tint="@android:color/transparent"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/summon_kingdom" />
@@ -88,7 +95,6 @@
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
         android:tint="@android:color/transparent"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/fight" />
@@ -101,6 +107,7 @@
         android:max="100"
         android:progress="75"
         android:scaleY="6"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/goldMineButton"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.0"
@@ -112,9 +119,69 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="75%"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/levelprogressBar"
         app:layout_constraintEnd_toEndOf="@+id/levelprogressBar"
         app:layout_constraintStart_toStartOf="@+id/levelprogressBar"
         app:layout_constraintTop_toTopOf="@+id/levelprogressBar" />
+
+    <View
+        android:id="@+id/squadView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/squadlinearLayout"
+        android:layout_width="0dp"
+        android:layout_height="164dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/squadView">
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/exitSquadimageButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/squadView"
+        app:srcCompat="@drawable/redxmd" />
+
+    <HorizontalScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="164dp"
+        app:layout_constraintEnd_toEndOf="@+id/squadView"
+        app:layout_constraintStart_toStartOf="@+id/squadView"
+        app:layout_constraintTop_toBottomOf="@+id/squadlinearLayout">
+
+        <LinearLayout
+            android:id="@+id/scrollviewLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="164dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/squadlinearLayout">
+
+        </LinearLayout>
+    </HorizontalScrollView>
 
 </android.support.constraint.ConstraintLayout>
